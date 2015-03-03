@@ -1,0 +1,21 @@
+{
+  "name": "minimap-bookmarks",
+  "main": "./lib/minimap-bookmarks",
+  "version": "0.0.0",
+  "description": "Displays Atom bookmarks in the minimap",
+  "repository": "https://github.com/atom/minimap-bookmarks",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.184.0"
+  },
+  "consumedServices": {
+    "minimap": {
+      "versions": {
+        "1.0.0": "consumeMinimapServiceV1"
+      }
+    }
+  },
+  "dependencies": {
+    "event-kit": ">= 0.7.2"
+  }
+}
