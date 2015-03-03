@@ -3,7 +3,7 @@
   "main": "./lib/minimap-bookmarks",
   "version": "0.0.0",
   "description": "Displays Atom bookmarks in the minimap",
-  "repository": "https://github.com/atom/minimap-bookmarks",
+  "repository": "https://github.com/atom-minimap/minimap-bookmarks",
   "license": "MIT",
   "engines": {
     "atom": ">=0.184.0"
