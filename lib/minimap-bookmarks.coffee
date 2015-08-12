@@ -15,7 +15,7 @@ module.exports =
     @minimap.registerPlugin 'bookmarks', this
 
   deactivate: ->
-    @minimap.unregisterPlugin 'bookmarks'
+    @minimap?.unregisterPlugin 'bookmarks'
     @minimap = null
 
   activatePlugin: ->

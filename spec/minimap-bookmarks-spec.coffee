@@ -13,10 +13,8 @@ describe "MinimapBookmarks", ->
     jasmine.attachToDOM(workspaceElement)
 
     waitsForPromise ->
-      atom.workspace.open('sample.coffee')
-
-    runs ->
-      editor = atom.workspace.getActiveTextEditor()
+      atom.workspace.open('sample.coffee').then (e) ->
+        editor = e
 
     waitsForPromise ->
       atom.packages.activatePackage('minimap').then (pkg) ->
@@ -37,9 +35,10 @@ describe "MinimapBookmarks", ->
       it 'creates decoration for the bookmark markers', ->
         expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(2)
 
-      describe 'destroying a marker', ->
-        beforeEach ->
-          marker1.destroy()
+        marker1.destroy()
 
-        it 'destroys decoration for the marker', ->
-          expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(1)
+        expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(1)
+
+        marker2.destroy()
+
+        expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(0)
