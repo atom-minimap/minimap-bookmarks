@@ -2,14 +2,14 @@
 
 MinimapBookmarksBinding = null
 
-
 module.exports =
   active: false
 
   isActive: -> @active
 
+  bindings: {}
+
   activate: (state) ->
-    @subscriptions = new CompositeDisposable
 
   consumeMinimapServiceV1: (@minimap) ->
     @minimap.registerPlugin 'bookmarks', this
@@ -21,20 +21,25 @@ module.exports =
   activatePlugin: ->
     return if @active
 
+    @subscriptions = new CompositeDisposable
     @active = true
 
     @minimapsSubscription = @minimap.observeMinimaps (minimap) =>
       MinimapBookmarksBinding ?= require './minimap-bookmarks-binding'
       binding = new MinimapBookmarksBinding(minimap)
+      @bindings[minimap.id] = binding
 
       @subscriptions.add subscription = minimap.onDidDestroy =>
         binding.destroy()
         @subscriptions.remove(subscription)
         subscription.dispose()
+        delete @bindings[minimap.id]
 
   deactivatePlugin: ->
     return unless @active
 
+    binding.destroy() for id,binding of @bindings
+    @bindings = {}
     @active = false
     @minimapsSubscription.dispose()
     @subscriptions.dispose()
