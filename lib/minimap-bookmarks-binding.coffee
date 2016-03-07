@@ -17,7 +17,7 @@ class MinimapBookmarksBinding
 
   handleMarker: (marker) ->
     {id} = marker
-    decoration = @minimap.decorateMarker(marker, type: 'line', class: 'bookmark')
+    decoration = @minimap.decorateMarker(marker, type: 'line', class: 'bookmark', plugin: 'bookmarks')
     @decorationsByMarkerId[id] = decoration
     @decorationSubscriptionsByMarkerId[id] = decoration.onDidDestroy =>
       @decorationSubscriptionsByMarkerId[id].dispose()
