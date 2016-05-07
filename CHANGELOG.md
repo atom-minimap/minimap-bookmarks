@@ -1,3 +1,11 @@
+<a name="v0.3.1"></a>
+# v0.3.1 (2016-05-07)
+
+## :bug: Bug Fixes
+
+- Fix error raised with display layer version ([5de44c84](https://github.com/atom-minimap/minimap-bookmarks/commit/5de44c844a67c73380c6b71c1f9eebb4da3b518a))
+
+
 <a name="v0.3.0"></a>
 # v0.3.0 (2016-03-07)
 
