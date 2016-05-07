@@ -1,7 +1,7 @@
 {
   "name": "minimap-bookmarks",
   "main": "./lib/minimap-bookmarks",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Displays Atom bookmarks in the minimap",
   "repository": "https://github.com/atom-minimap/minimap-bookmarks",
   "license": "MIT",
