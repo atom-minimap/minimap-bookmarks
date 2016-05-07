@@ -8,12 +8,13 @@ class MinimapBookmarksBinding
     @decorationsByMarkerId = {}
     @decorationSubscriptionsByMarkerId = {}
 
-    @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
-      if marker.matchesProperties(class: 'bookmark')
-        @handleMarker(marker)
+    if @editor.displayBuffer.onDidCreateMarker?
+      @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
+        if marker.matchesProperties(class: 'bookmark')
+          @handleMarker(marker)
 
-    @editor.displayBuffer.findMarkers(class: 'bookmark').forEach (marker) =>
-      @handleMarker(marker)
+      @editor.displayBuffer.findMarkers(class: 'bookmark').forEach (marker) =>
+        @handleMarker(marker)
 
   handleMarker: (marker) ->
     {id} = marker
