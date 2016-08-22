@@ -10,7 +10,7 @@ class MinimapBookmarksBinding
 
     # https://github.com/atom/bookmarks/blob/master/lib/main.coffee#L38
     id = atom.packages.packageStates?.bookmarks?[@editor.id]?.markerLayerId
-    markerLayer = markerLayerId && @editor.getMarkerLayer(id)
+    markerLayer = id && @editor.getMarkerLayer(id)
     if markerLayer?
       @subscriptions.add markerLayer.onDidCreateMarker (marker) =>
         @handleMarker(marker)
