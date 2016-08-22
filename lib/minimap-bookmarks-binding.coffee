@@ -8,7 +8,16 @@ class MinimapBookmarksBinding
     @decorationsByMarkerId = {}
     @decorationSubscriptionsByMarkerId = {}
 
-    if @editor.displayBuffer.onDidCreateMarker?
+    # https://github.com/atom/bookmarks/blob/master/lib/main.coffee#L38
+    markerLayerId = atom.packages.packageStates?.bookmarks?[@editor.id]?.markerLayerId
+    if markerLayerId?
+      @subscriptions.add @editor.getMarkerLayer(markerLayerId).onDidCreateMarker (marker) =>
+        @handleMarker(marker)
+
+      @editor.getMarkerLayer(markerLayerId).findMarkers().forEach (marker) =>
+        @handleMarker(marker)
+
+    else if @editor.displayBuffer.onDidCreateMarker?
       @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
         if marker.matchesProperties(class: 'bookmark')
           @handleMarker(marker)
