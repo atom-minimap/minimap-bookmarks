@@ -5,16 +5,27 @@ MinimapBookmarks = require '../lib/minimap-bookmarks'
 # To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
-describe "MinimapBookmarks", ->
-  [workspaceElement, editor, minimap] = []
+describe 'MinimapBookmarks', ->
+  [workspaceElement, editor, editorElement, bookmarks, minimap] = []
+
+  bookmarkedRangesForEditor = (editor) ->
+    obj = editor.decorationsStateForScreenRowRange(0, editor.getLastScreenRow())
+    Object.keys(obj)
+      .map (k) -> obj[k]
+      .filter (decoration) -> decoration.properties.class is 'bookmarked'
+      .map (decoration) -> decoration.screenRange
 
   beforeEach ->
+    spyOn(window, 'setImmediate').andCallFake (fn) -> fn()
     workspaceElement = atom.views.getView(atom.workspace)
-    jasmine.attachToDOM(workspaceElement)
 
     waitsForPromise ->
       atom.workspace.open('sample.coffee').then (e) ->
         editor = e
+
+    waitsForPromise ->
+      atom.packages.activatePackage('bookmarks').then (pkg) ->
+        bookmarks = pkg.mainModule
 
     waitsForPromise ->
       atom.packages.activatePackage('minimap').then (pkg) ->
@@ -23,22 +34,36 @@ describe "MinimapBookmarks", ->
     waitsForPromise ->
       atom.packages.activatePackage('minimap-bookmarks')
 
-  describe "with an open editor that have a minimap", ->
-    [marker1, marker2, marker3] = []
-    describe 'when bookmarks markers are added to the editor', ->
+    runs ->
+      jasmine.attachToDOM(workspaceElement)
+      editorElement = atom.views.getView(editor)
+      atom.packages.packageStates.bookmarks = bookmarks.serialize()
+      spyOn(atom, 'beep')
+
+  describe 'with an open editor that have a minimap', ->
+    describe 'when toggle switch bookmarks markers to the editor', ->
       beforeEach ->
-        marker1 = editor.markBufferRange([[2,0],[2,0]], class: 'bookmark', invalidate: 'surround')
-        marker2 = editor.markBufferRange([[3,0],[3,0]], class: 'bookmark', invalidate: 'surround')
+        editor.setCursorScreenPosition([2, 0])
+        atom.commands.dispatch editorElement, 'bookmarks:toggle-bookmark'
 
-        marker3 = editor.markBufferRange([[1,0],[1,0]], invalidate: 'surround')
+        editor.setCursorScreenPosition([3, 0])
+        atom.commands.dispatch editorElement, 'bookmarks:toggle-bookmark'
 
-      it 'creates decoration for the bookmark markers', ->
-        expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(2)
+        editor.setCursorScreenPosition([1, 0])
+        atom.commands.dispatch editorElement, 'bookmarks:toggle-bookmark'
+        atom.commands.dispatch editorElement, 'bookmarks:toggle-bookmark'
 
-        marker1.destroy()
+      it 'creates tow markers', ->
+        expect(bookmarkedRangesForEditor(editor).length).toBe 2
 
-        expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(1)
+      it 'creates state of bookmarks', ->
+        expect(Object.keys(atom.packages.packageStates.bookmarks).length).toBe 1
 
-        marker2.destroy()
+      it 'gets markerLayerId from state of bookmarks by editorId', ->
+        markerLayerId = atom.packages.packageStates.bookmarks[editor.id].markerLayerId
+        expect(markerLayerId).not.toEqual undefined
 
-        expect(Object.keys(minimap.decorationsByMarkerId).length).toEqual(0)
+      it 'finds marks by markerLayerId', ->
+        markerLayerId = atom.packages.packageStates.bookmarks[editor.id].markerLayerId
+        markerLayer = editor.getMarkerLayer(markerLayerId)
+        expect(markerLayer.findMarkers().length).toBe 2
