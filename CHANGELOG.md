@@ -1,3 +1,13 @@
+<a name="v0.4.0"></a>
+# v0.4.0 (2016-08-23)
+
+## :bug: Bug Fixes
+
+- Fix raise error while checking editor.displayBuffer, because `TextEditor.prototype.displayBuffer` has always been private, #5 ([83c9217b](https://github.com/atom-minimap/minimap-bookmarks/commit/83c9217bb2ba12e3364dd9f6be6b9f2087f6801b))
+- Fix test cases, #5 ([15b05f71](https://github.com/atom-minimap/minimap-bookmarks/commit/15b05f71bd47eb1f0b2fe60fc8cf9f25e5be516e))
+- Fix bookmarks not appear, #5 ([f19d323d](https://github.com/atom-minimap/minimap-bookmarks/commit/f19d323dc12be92b143a8300c2373c20e08f8e62))
+
+
 <a name="v0.3.1"></a>
 # v0.3.1 (2016-05-07)
 
