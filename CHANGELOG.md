@@ -1,3 +1,11 @@
+<a name="v0.4.1"></a>
+# v0.4.1 (2016-08-23)
+
+## :bug: Bug Fixes
+
+- Fix typo ([23a28d2e](https://github.com/atom-minimap/minimap-bookmarks/commit/23a28d2e9f5bb4c34ee41ea398df65551eceadcf))
+
+
 <a name="v0.4.0"></a>
 # v0.4.0 (2016-08-23)
 
