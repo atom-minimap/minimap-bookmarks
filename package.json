@@ -5,6 +5,11 @@
   "description": "Displays Atom bookmarks in the minimap",
   "repository": "https://github.com/atom-minimap/minimap-bookmarks",
   "license": "MIT",
+  "keywords": [
+    "minimap",
+    "bookmarks",
+    "bookmark"
+  ],
   "engines": {
     "atom": ">=0.184.0"
   },
