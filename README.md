@@ -8,6 +8,8 @@ Customization
 
 If you want to change the color of the minimap bookmarks use the following CSS rules in your user stylesheet:
 
+```css
 .minimap .bookmark {
   background: #09C;
 }
+```
