@@ -13,7 +13,7 @@ class MinimapBookmarksBinding
     requestAnimationFrame =>
       # Also, targeting private properties on atom.packages is very brittle.
       # DO NOT DO THAT!
-      # 
+      #
       # If we really have to get the marker layer id from the
       # state (which can already break easily) it's better to get it from the
       # package `serialize` method since it's an API that is public and is
@@ -21,10 +21,11 @@ class MinimapBookmarksBinding
       id = @bookmarks.serialize()[@editor.id]?.markerLayerId
       markerLayer = @editor.getMarkerLayer(id)
 
-      @subscriptions.add markerLayer.onDidCreateMarker (marker) =>
-        @handleMarker(marker)
+      if markerLayer?
+        @subscriptions.add markerLayer.onDidCreateMarker (marker) =>
+          @handleMarker(marker)
 
-      markerLayer.findMarkers().forEach (marker) => @handleMarker(marker)
+        markerLayer.findMarkers().forEach (marker) => @handleMarker(marker)
 
   handleMarker: (marker) ->
     {id} = marker
