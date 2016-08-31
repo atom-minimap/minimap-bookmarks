@@ -2,21 +2,29 @@
 
 module.exports =
 class MinimapBookmarksBinding
-  constructor: (@minimap) ->
+  constructor: (@minimap, @bookmarks) ->
     @subscriptions = new CompositeDisposable
     @editor = @minimap.getTextEditor()
     @decorationsByMarkerId = {}
     @decorationSubscriptionsByMarkerId = {}
 
-    # https://github.com/atom/bookmarks/blob/master/lib/main.coffee#L38
-    id = atom.packages.packageStates?.bookmarks?[@editor.id]?.markerLayerId
-    markerLayer = id && @editor.getMarkerLayer(id)
-    if markerLayer?
+    # We need to wait until the bookmarks package had created its marker
+    # layer before retrieving its id from the state.
+    requestAnimationFrame =>
+      # Also, targeting private properties on atom.packages is very brittle.
+      # DO NOT DO THAT!
+      # 
+      # If we really have to get the marker layer id from the
+      # state (which can already break easily) it's better to get it from the
+      # package `serialize` method since it's an API that is public and is
+      # unlikely to change in a near future.
+      id = @bookmarks.serialize()[@editor.id]?.markerLayerId
+      markerLayer = @editor.getMarkerLayer(id)
+
       @subscriptions.add markerLayer.onDidCreateMarker (marker) =>
         @handleMarker(marker)
 
-      markerLayer.findMarkers().forEach (marker) =>
-        @handleMarker(marker)
+      markerLayer.findMarkers().forEach (marker) => @handleMarker(marker)
 
   handleMarker: (marker) ->
     {id} = marker

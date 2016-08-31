@@ -10,6 +10,9 @@
     "bookmarks",
     "bookmark"
   ],
+  "dependencies": {
+    "atom-utils": "*"
+  },
   "engines": {
     "atom": ">=0.184.0"
   },

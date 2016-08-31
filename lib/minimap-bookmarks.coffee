@@ -1,4 +1,5 @@
 {CompositeDisposable} = require 'atom'
+{requirePackages} = require 'atom-utils'
 
 MinimapBookmarksBinding = null
 
@@ -21,19 +22,20 @@ module.exports =
   activatePlugin: ->
     return if @active
 
-    @subscriptions = new CompositeDisposable
-    @active = true
+    requirePackages('bookmarks').then ([bookmarks]) =>
+      @subscriptions = new CompositeDisposable
+      @active = true
 
-    @minimapsSubscription = @minimap.observeMinimaps (minimap) =>
-      MinimapBookmarksBinding ?= require './minimap-bookmarks-binding'
-      binding = new MinimapBookmarksBinding(minimap)
-      @bindings[minimap.id] = binding
+      @minimapsSubscription = @minimap.observeMinimaps (minimap) =>
+        MinimapBookmarksBinding ?= require './minimap-bookmarks-binding'
+        binding = new MinimapBookmarksBinding(minimap, bookmarks)
+        @bindings[minimap.id] = binding
 
-      @subscriptions.add subscription = minimap.onDidDestroy =>
-        binding.destroy()
-        @subscriptions.remove(subscription)
-        subscription.dispose()
-        delete @bindings[minimap.id]
+        @subscriptions.add subscription = minimap.onDidDestroy =>
+          binding.destroy()
+          @subscriptions.remove(subscription)
+          subscription.dispose()
+          delete @bindings[minimap.id]
 
   deactivatePlugin: ->
     return unless @active
