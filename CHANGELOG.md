@@ -1,3 +1,10 @@
+<a name="v0.4.2"></a>
+# v0.4.2 (2016-08-31)
+
+## :bug: Bug Fixes
+
+- Fix access to bookmarks markers's layer ([22a5eef8](https://github.com/atom-minimap/minimap-bookmarks/commit/22a5eef8968f54b96373d57027779e55bfaa6d3f), [#5](https://github.com/atom-minimap/minimap-bookmarks/issues/5))
+
 <a name="v0.4.1"></a>
 # v0.4.1 (2016-08-23)
 
