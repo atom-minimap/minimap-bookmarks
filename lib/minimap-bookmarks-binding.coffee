@@ -3,6 +3,8 @@
 module.exports =
 class MinimapBookmarksBinding
   constructor: (@minimap, @bookmarks) ->
+    return unless @minimap? and @bookmarks?
+
     @subscriptions = new CompositeDisposable
     @editor = @minimap.getTextEditor()
     @decorationsByMarkerId = {}
