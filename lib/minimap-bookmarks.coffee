@@ -1,4 +1,4 @@
-[MinimapBookmarksBinding, CompositeDisposable, requirePackages] = null
+[MinimapBookmarksBinding, CompositeDisposable, requirePackages] = []
 
 module.exports =
   active: false
