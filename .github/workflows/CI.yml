@@ -27,7 +27,7 @@ jobs:
     - name: APM version
       run: apm -v
     - name: Install package dependencies
-      run: apm i minimap
+      run: apm i minimap bookmarks
     - name: Install dependencies
       run: apm ci
     - name: Run tests 👩🏾‍💻
