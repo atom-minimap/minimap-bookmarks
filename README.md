@@ -1,4 +1,6 @@
-# minimap-bookmarks package [![Build Status](https://travis-ci.org/atom-minimap/minimap-bookmarks.svg?branch=master)](https://travis-ci.org/atom-minimap/minimap-bookmarks)
+# minimap-bookmarks package
+
+[![Build Status](https://github.com/atom-minimap/minimap-bookmarks/workflows/CI/badge.svg)](https://github.com/atom-minimap/minimap-bookmarks/actions)
 
 Displays Atom bookmarks in the minimap.
 
