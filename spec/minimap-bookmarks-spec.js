@@ -1,4 +1,4 @@
-// const MinimapBookmarks = require('../lib/minimap-bookmarks')
+const MinimapBookmarks = require('../lib/minimap-bookmarks')
 
 describe('MinimapBookmarks', () => {
 	let editor, editorElement, bookmarks
@@ -29,6 +29,10 @@ describe('MinimapBookmarks', () => {
 		await atom.packages.activatePackage('minimap-bookmarks')
 
 		atom.packages.packageStates.bookmarks = bookmarks.serialize()
+	})
+
+	it('should activate', () => {
+		expect(MinimapBookmarks.isActive()).toBe(true)
 	})
 
 	describe('with an open editor that have a minimap', () => describe('when toggle switch bookmarks markers to the editor', () => {
