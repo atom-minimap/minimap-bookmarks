@@ -1,3 +1,10 @@
+## [0.4.4](https://github.com/atom-minimap/minimap-bookmarks/compare/v0.4.3...v0.4.4) (2020-12-10)
+
+
+### Bug Fixes
+
+* Optimizations ([#14](https://github.com/atom-minimap/minimap-bookmarks/issues/14)) ([e71bd8d](https://github.com/atom-minimap/minimap-bookmarks/commit/e71bd8d8974cdd576aeccc9ec0938a8f5b70b193))
+
 ## [0.4.3](https://github.com/atom-minimap/minimap-bookmarks/compare/v0.4.2...v0.4.3) (2020-11-28)
 
 
