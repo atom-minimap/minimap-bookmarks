@@ -1,3 +1,10 @@
+## [0.4.5](https://github.com/atom-minimap/minimap-bookmarks/compare/v0.4.4...v0.4.5) (2020-12-14)
+
+
+### Bug Fixes
+
+* **deps:** bump atom-package-deps from 7.0.2 to 7.0.3 ([#17](https://github.com/atom-minimap/minimap-bookmarks/issues/17)) ([cda4773](https://github.com/atom-minimap/minimap-bookmarks/commit/cda4773acdd56c1a0ff62a0d67cff2352e173d95))
+
 ## [0.4.4](https://github.com/atom-minimap/minimap-bookmarks/compare/v0.4.3...v0.4.4) (2020-12-10)
 
 
